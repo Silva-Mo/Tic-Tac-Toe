@@ -23,6 +23,10 @@ containerBoard.addEventListener('click', (e) => {
             console.log("X has won");
             winner = "X"
         }
+        else if (gameBoard.detectWin(gameBoard.getMarker(previousPlayer)) === "Tie"){
+            console.log("Tie");
+            winner = "Tie"
+        }
     }
 })
 
@@ -55,6 +59,10 @@ const gameBoard = (function(){
                 }
             }  
         }
+        
+        if (gameBoardArr.some((element) => {if (element === "") {return true}}) === false){
+            return "Tie"
+        }
     }
 
     const getCompareResult = (filteredGameBoard, combination) => {
@@ -81,7 +89,6 @@ const gameBoard = (function(){
     }
 
     const getMarker = (playerTurn)=> {
-        console.log(playerTurn);
         if (playerTurn === "1"){
             return player1.marker;
         }
