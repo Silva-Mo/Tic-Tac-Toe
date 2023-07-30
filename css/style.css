@@ -8,25 +8,335 @@ body{
     align-items: center;
     min-height: 100vh;
     flex-direction: column;
+    background: #3CA55C;
+    background: -webkit-linear-gradient(to right, #B5AC49, #3CA55C);
+    background: linear-gradient(to right, #B5AC49, #3CA55C);
+}
+
+body h1.title-game{
+    display: none;
 }
 
 .grid-container{
-    width: 500px;
-    height: 500px;
-    background-color: black;
-    gap: 2px;
-    border: 2px solid black;
-
+    width: 450px;
+    height: 450px;
+    background-color: transparent;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    display: none;
 }
 
 .square{
-    background-color: white;
+    background-color: transparent;
     color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 3rem;
+}
+
+.square[data-index="0"]{
+    border-bottom: 0;
+    border-left: 0;
+}
+
+.square:nth-child(-n + 3){
+    border-top: 0;
+}
+
+.square:nth-child(-n + 9){
+    border-bottom: 0;
+}
+
+.square:nth-child(3n){
+    border-right: 0;
+}
+
+.square {
+    border: 4px solid rgba(0, 0, 0, 0.199);
+}
+
+.square + .square {
+    border-left: 0;
+    border-bottom: 0;
+}
+
+@keyframes down {
+    0%{
+        transform: scale(1.5);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+}
+
+@keyframes up-down {
+    0%{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.3);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+}
+
+@keyframes popup {
+    0%{
+        transform: scale(0.7);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+}
+
+img.X, img.O{
+    height: 60%;
+    width: 60%;
+    animation: down 0.34s;
+}
+
+.footer {
+    height:50px;
+    display: none;
+}
+
+img.winX, img.winO{
+    height: 65%;
+    width: 65%;
+    animation: up-down 2s;
+    animation-iteration-count: infinite;
+}
+
+h1.title-start {
+    font-size: 3rem;
+}
+
+.start-screen{
+    min-height: calc(400px + 1vh);
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background:  #0058516e;
+    background: -webkit-linear-gradient(to top, #c7d82c18, #00585142);
+    background: linear-gradient(to top, #c7d82c18, #00585142);
+    border-radius: 12px;
+    box-shadow: 13px 13px 3px rgba(73, 73, 73, 0.301);
+    padding-bottom: 75px;
+    animation: popup 0.6s;
+}
+
+.modes {
+    display: flex;
+    justify-content: space-around   ;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 50px;
+    height: 150px;
+}
+
+.options {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+    margin-top: 30px;
+}
+
+button{
+    width: 300px;
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.199);
+    color: white;
+    border: 3px solid white;
+    border-radius: 4px;
+    font-size: 1.17rem;
+    transition: 0.27s;
+    padding: 10px;
+}
+
+button:hover{
+    transform: scale(1.03);
+}
+
+button:active{
+    transform: scale(1);
+}
+
+.green{
+    color: greenyellow;
+}
+
+.yellow{
+    color: yellow;
+}
+
+h2.choose-text{
+    color: white;
+    font-size: 1.7rem;
+}
+
+.modal-container{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.432);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modal-PvP {
+    min-height: 400px;
+    left: 50%;
+    top: 50%;
+    height: 63%;
+    width: 27%;
+    background: #005851;
+    background: -webkit-linear-gradient(to bottom, #02b65c, #005851);
+    background: linear-gradient(to bottom, #02b65c, #00643e);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: popup 0.27s;
+}
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close img {
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+}
+
+form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+form h1 {
+    margin-top: 0;
+    color: white;
+    font-size: 1.6rem;
+}
+
+form label {
+    display: block;
+    margin-bottom: 4px;
+    color: white;
+    position: absolute;
+    top: 5px;
+    transition: transform 150ms ease-out, font-size 150ms ease-out;;
+}
+
+form div {
+    position: relative;
+    width: 80%;
+    margin-top: 15px;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-size: 1rem;
+    min-height: 32px;
+    width: 80%;
+    position: relative;
+}
+
+div.p1 > input {
+    border-bottom: 2px solid greenyellow;
+}
+
+div.p2 > input {
+    border-bottom: 2px solid yellow;
+}
+
+input:focus {
+    outline: none;
+}
+
+input.focused + label {
+    transform: translateY(-140%);
+    font-size: 0.75em;
+}
+
+button.submit, button.reset {
+    width: 45%;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.5s;
+}
+
+form > div::after{
+    content: "";
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    right: 2px;
+}
+
+form > div.p1::after{
+    background-image: url(../imgs/X.svg);
+}
+
+form > div.p2::after {
+    background-image: url(../imgs/O.svg);
+}
+
+.submit_container {
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    align-self: center;
+}
+
+div.submit_container > button > img {
+    height: 25px;
+    width: 25px;
+    margin-bottom: 3px;
+}
+
+div.submit_container button:hover {
+    transform: scale(1.05);
+}
+
+div.submit_container button:active {
+    transform: scale(0.97);
 }

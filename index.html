@@ -9,7 +9,17 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <h1>Tic Tac Toe</h1>
+    <div class="start-screen">
+        <h1 class="title-start"><span class="green">Tic</span> <span class="yellow">Tac</span> <span class="green">Toe</span></h1>
+        <div class="modes">
+            <h2 class="choose-text">Select your mode:</h4>
+            <div class="options">
+                <button class="Player-vs-Player">Player vs Player</button>
+                <button class="Player-vs-AI">Player vs AI</button>    
+            </div>
+        </div>
+    </div>
+    <h1 class="title-game">Tic Tac Toe</h1>
     <div class="grid-container">
         <div class="square" data-index="0"></div>
         <div class="square" data-index="1"></div>
@@ -20,6 +30,37 @@
         <div class="square" data-index="6"></div>
         <div class="square" data-index="7"></div>
         <div class="square" data-index="8"></div>
+    </div>
+    <div class="footer">
+        Footer
+    </div>
+    <div class="modal-container">
+        <div class="modal-PvP">
+            <div class="close">
+                <img src="imgs/close.svg" alt="close">
+            </div>
+            <form action="#" id="players_form" novalidate>
+                <h1>Type Your Names:</h1>
+                <div class="p1">
+                    <input type="text" id="player1_name" required maxlength="30" minlength="1">
+                    <label for="player1_name">Player1 Name</label>
+                </div>
+                <div class="p2">
+                    <input type="text" id="player2_name" required maxlength="30" minlength="1">
+                    <label for="player2_name">Player2 Name</label>
+                </div>
+            </form>
+            <div class="submit_container">
+                <button class="submit" type="submit" form="players_form">
+                    Submit
+                    <img src="imgs/tick.svg" alt="submit">
+                </button>
+                <button class="reset" type="reset" form="players_form">
+                    Clear
+                    <img src="imgs/clear.svg" alt="clear">
+                </button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
