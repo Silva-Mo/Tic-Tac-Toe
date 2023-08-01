@@ -13,7 +13,12 @@ body{
     background: linear-gradient(to right, #B5AC49, #3CA55C);
 }
 
-body h1.title-game{
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     display: none;
 }
 
@@ -78,7 +83,7 @@ body h1.title-game{
     }
 
     50%{
-        transform: scale(1.3);
+        transform: scale(1.2);
     }
 
     100%{
@@ -200,14 +205,14 @@ h2.choose-text{
 }
 
 .modal-PvP {
-    min-height: 400px;
+    min-height: 320px;
     left: 50%;
     top: 50%;
-    height: 63%;
+    height: 20%;
     width: 27%;
-    background: #005851;
-    background: -webkit-linear-gradient(to bottom, #02b65c, #005851);
-    background: linear-gradient(to bottom, #02b65c, #00643e);
+    background: #bdc3c7;
+    background: -webkit-linear-gradient(to bottom, #2c3e50, #9da1a3);
+    background: linear-gradient(to bottom, #6c767e, #727272);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -339,4 +344,80 @@ div.submit_container button:hover {
 
 div.submit_container button:active {
     transform: scale(0.97);
+}
+
+.game-turns {
+    display: none;
+    margin: 0;
+    width: 40%;
+    margin-top: 20px;
+    min-height: 130px;
+    border-radius: 7px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.info img {
+    height: 40px;
+    width: 40px;
+    margin-bottom: 15px;
+}
+
+.player1.info {
+    border-radius: 3px;
+    padding-bottom: 5px;
+    color: rgb(0, 255, 0);
+    text-shadow: 0px 0px 10px rgb(31, 31, 31);
+}
+
+.player2.info {
+    color: yellow;
+    text-shadow: 0px 0px 10px rgb(31, 31, 31);
+}
+
+.player1-name, .player2-name{
+    border-radius: 2px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent;
+    transition: 0.27s;
+    text-align: center;
+}
+
+.winner {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: opacity 0.8s;
+}
+
+@keyframes opacity {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+.winner-name {
+    text-shadow: 0 0 14px black;
+    text-align: center;
+}
+
+.restart-btn{
+    width: 100px;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
 }

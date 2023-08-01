@@ -8,8 +8,15 @@ const resetBtn = document.querySelector('.reset');
 const form = document.querySelector('form');
 const inputs = document.querySelectorAll('input');
 const startScreen = document.querySelector('.start-screen');
-const h1GameTitle = document.querySelector('.title-game');
-const footer = document.querySelector('.footer')
+const gameTurns = document.querySelector('.game-turns');
+const footer = document.querySelector('.footer');
+const contentDiv = document.querySelector('.content');
+const player1Name = document.querySelector('.player1-name');
+const player2Name = document.querySelector('.player2-name');
+const divGameTurns = document.querySelector('.game-turns');
+const winner = document.querySelector('.winner');
+const winnerName = document.querySelector('.winner-name');
+const restartBtn = document.querySelector('.restart-btn');
 
 function player(name, marker){
     return {name, marker};
@@ -19,18 +26,29 @@ containerBoard.addEventListener('click', (e) => {
     if ((e.target.classList.contains('square')) && (e.target.childNodes.length === 0) && !gameBoard.winner){
         let square =  e.target;
         gameBoard.playerTurnNum(gameBoard.previousPlayer);
+        displayController.highlightTurns();
         gameBoard.placeMarker(gameBoard.getMarker(gameBoard.previousPlayer), square);
         if (gameBoard.detectWin(gameBoard.getMarker(gameBoard.previousPlayer)) === "O"){
-            console.log("0 has won");
+            console.log("O has won");
             gameBoard.winner = "O";
+            displayController.closeHighlights();
+            displayController.unHighlightTurns();
+            displayController.showWinner("O");
+
         }
         else if (gameBoard.detectWin(gameBoard.getMarker(gameBoard.previousPlayer)) === "X"){
             console.log("X has won");
             gameBoard.winner = "X"
+            displayController.closeHighlights();
+            displayController.unHighlightTurns();
+            displayController.showWinner("X");
         }
         else if (gameBoard.detectWin(gameBoard.getMarker(gameBoard.previousPlayer)) === "Tie"){
             console.log("Tie");
-            gameBoard.winner = "Tie"
+            gameBoard.winner = "Tie";
+            displayController.closeHighlights();
+            displayController.unHighlightTurns();
+            displayController.showWinner("Tie");
         }
     }
 })
@@ -52,11 +70,21 @@ submitBtn.addEventListener('click', (e) => {
         gameBoard.player2 = player(inputs[1].value, "O");
         resetBtn.click();
         displayController.close(); 
-        displayController.showGame();   
+        displayController.showGame(); 
+        displayController.showNames(); 
+        displayController.highlightTurns(); 
     }
     else{
         displayController.showError();
     }
+})
+
+restartBtn.addEventListener('click', () => {
+    gameBoard.restartGame();
+    squares.forEach((square) => {
+        square.innerHTML = "";
+    })
+    
 })
 
 const gameBoard = (function(){
@@ -154,7 +182,7 @@ const gameBoard = (function(){
                 const winX = document.createElement('img');
                 winX.setAttribute('src', '../imgs/winX.svg');
                 winX.classList.add('winX');
-                squares[combination[i]].appendChild(winX)
+                squares[combination[i]].appendChild(winX);
             }
         }
         else if (marker === "O"){
@@ -169,7 +197,16 @@ const gameBoard = (function(){
         }
     }
 
-    return {playerTurnNum, getMarker, placeMarker, detectWin, previousPlayer};
+    const restartGame = () =>{
+        previousPlayer = "";
+        delete gameBoard.previousPlayer;
+        delete gameBoard.winner;
+        for (let i = 0; i < gameBoardArr.length; i++){
+            gameBoardArr[i] = "";
+        }
+    }
+
+    return {playerTurnNum, getMarker, placeMarker, detectWin, previousPlayer, restartGame};
 })()
 
 const displayController = (function (){
@@ -204,16 +241,58 @@ const displayController = (function (){
 
     const close = () => {
         modalContainer.style.display = "none";
-        startScreen.style.display = "none"
+        startScreen.style.display = "none";
     }
     
     const showGame = () => {
         containerBoard.style.display = "grid";
-        h1GameTitle.style.display = "block";
+        gameTurns.style.display = "flex";
         footer.style.display = "block";
+        contentDiv.style.display = "flex";
     }
 
-    return {showModal, inputFocusEffect, showError, close, showGame};
+    const showNames = () => {
+        player1Name.textContent = gameBoard.player1.name;
+        player2Name.textContent = gameBoard.player2.name;
+    }
+
+    const highlightTurns = () => {
+        if (gameBoard.previousPlayer === "2" || gameBoard.previousPlayer === ""){
+            player2Name.style.borderBottom = "3px solid transparent"
+            player1Name.style.borderBottom = "3px solid greenYellow";
+        }
+        else{
+            player2Name.style.borderBottom = "3px solid yellow"
+            player1Name.style.borderBottom = "3px solid transparent"
+        }
+    }
+
+    const unHighlightTurns = () => {
+        player1Name.style.borderBottom = "3px solid transparent"
+        player2Name.style.borderBottom = "3px solid transparent"
+    }
+
+    const closeHighlights = () => {
+        divGameTurns.style.display = "none";
+    }
+
+    const showWinner = (winnerResult) => {
+        if (winnerResult === "X"){
+            winnerName.textContent = `Winner is ${gameBoard.player1.name}`;
+            winnerName.style.color = "greenyellow";
+        }
+        else if (winnerResult === "O"){
+            winnerName.textContent = `Winner is ${gameBoard.player2.name}`;
+            winnerName.style.color = "yellow";
+        }
+        else if (winnerResult === "Tie"){
+            winnerName.textContent = "it's a Tie";
+            winner.style.color = "white";
+        }
+        winner.style.display = "flex";
+    } 
+
+    return {showModal, inputFocusEffect, showError, close, showGame, showNames, highlightTurns, unHighlightTurns, closeHighlights, showWinner};
 })()
 
 displayController.inputFocusEffect(inputs);
