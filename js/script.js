@@ -17,13 +17,17 @@ const divGameTurns = document.querySelector('.game-turns');
 const winner = document.querySelector('.winner');
 const winnerName = document.querySelector('.winner-name');
 const restartBtn = document.querySelector('.restart-btn');
+const AIbtn = document.querySelector('.Player-vs-AI');
+const modalAIContainer = document.querySelector('.modal-container-AI');
+const easyMode = document.querySelector('.easy');
+const hardMode = document.querySelector('.hard');
 
 function player(name, marker){
     return {name, marker};
 }
 
 containerBoard.addEventListener('click', (e) => {
-    if ((e.target.classList.contains('square')) && (e.target.childNodes.length === 0) && !gameBoard.winner){
+    if ((e.target.classList.contains('square')) && (e.target.childNodes.length === 0) && !gameBoard.winner && !gameBoard.AIMode){
         let square =  e.target;
         gameBoard.playerTurnNum(gameBoard.previousPlayer);
         displayController.highlightTurns();
@@ -32,7 +36,6 @@ containerBoard.addEventListener('click', (e) => {
             console.log("O has won");
             gameBoard.winner = "O";
             displayController.closeHighlights();
-            displayController.unHighlightTurns();
             displayController.showWinner("O");
 
         }
@@ -40,14 +43,39 @@ containerBoard.addEventListener('click', (e) => {
             console.log("X has won");
             gameBoard.winner = "X"
             displayController.closeHighlights();
-            displayController.unHighlightTurns();
             displayController.showWinner("X");
         }
         else if (gameBoard.detectWin(gameBoard.getMarker(gameBoard.previousPlayer)) === "Tie"){
             console.log("Tie");
             gameBoard.winner = "Tie";
             displayController.closeHighlights();
-            displayController.unHighlightTurns();
+            displayController.showWinner("Tie");
+        }
+    }
+
+    else if ((e.target.classList.contains('square')) && (e.target.childNodes.length === 0) && !gameBoard.winner && gameBoard.AIMode){
+        let square =  e.target;
+        gameBoard.placeMarker("X", square);
+        gameBoard.previousPlayer = "1";
+        if (gameBoard.detectWin("X") === "X"){
+            console.log("X has won");
+            gameBoard.winner = "X"
+            displayController.closeHighlights();
+            displayController.showWinner("X");
+        }
+        if (gameBoard.previousPlayer === "1" && !gameBoard.winner && !gameBoard.isBoardFull()){
+            gameBoard.placeMarker("O", squares[gameBoard.AInextMoveEasy()]);
+            if (gameBoard.detectWin("O") === "O"){
+                console.log("O has won");
+                gameBoard.winner = "O";
+                displayController.closeHighlights();
+                displayController.showWinner("O");
+            }
+        }
+        if (gameBoard.detectWin("X") === "Tie" && !(gameBoard.detectWin("X") === "X") && !(gameBoard.detectWin("O") === "O")){
+            console.log("Tie");
+            gameBoard.winner = "Tie";
+            displayController.closeHighlights();
             displayController.showWinner("Tie");
         }
     }
@@ -55,6 +83,10 @@ containerBoard.addEventListener('click', (e) => {
 
 pvpBtn.addEventListener('click', () => {
     displayController.showModal();
+})
+
+AIbtn.addEventListener('click', () => {
+    displayController.showAIModal();
 })
 
 resetBtn.addEventListener('click', (e) => {
@@ -79,22 +111,37 @@ submitBtn.addEventListener('click', (e) => {
     }
 })
 
+easyMode.addEventListener('click', () => {
+        gameBoard.AIMode = true;
+        gameBoard.player1 = player("You", "X");
+        gameBoard.player2 = player("AI", "O");
+        displayController.close();
+        displayController.showGame();
+        displayController.showNames();
+})
+
 restartBtn.addEventListener('click', () => {
     gameBoard.restartGame();
     squares.forEach((square) => {
         square.innerHTML = "";
     })
-    
+    displayController.closeWinner();
+    displayController.showHighlights();
+    if (gameBoard.AIMode === false){
+        displayController.highlightTurns();    
+    }
 })
 
 const gameBoard = (function(){
     const gameBoardArr = ["","","" 
                          ,"","",""
                          ,"","",""]
-    
+
     const winCombinations = [
         [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[2,4,6],[0,4,8]
     ]
+
+    let AIMode = false;
  
     let previousPlayer = "";
 
@@ -198,15 +245,37 @@ const gameBoard = (function(){
     }
 
     const restartGame = () =>{
-        previousPlayer = "";
-        delete gameBoard.previousPlayer;
+        gameBoard.previousPlayer = "";
         delete gameBoard.winner;
         for (let i = 0; i < gameBoardArr.length; i++){
             gameBoardArr[i] = "";
         }
     }
 
-    return {playerTurnNum, getMarker, placeMarker, detectWin, previousPlayer, restartGame};
+    const AInextMoveEasy = () => {
+        if (gameBoardArr.some((element) => {if (element === "") {return true}}) === false){
+            return;
+        }
+        let randomNum = (Math.round(Math.random() * 9)).toString();
+        if (!(gameBoardArr[randomNum] === "")){
+            return AInextMoveEasy();
+        }
+        else  {
+            return randomNum;
+        }
+    }
+
+    const isBoardFull = () => {
+        if(gameBoardArr.some((element) => {if (element === "") {return true}}) === false){
+            return true;
+        }
+        else {
+            return false
+        }
+    }
+
+    return {playerTurnNum, getMarker, placeMarker, detectWin, 
+        previousPlayer, restartGame, AIMode, AInextMoveEasy, isBoardFull};
 })()
 
 const displayController = (function (){
@@ -241,13 +310,14 @@ const displayController = (function (){
 
     const close = () => {
         modalContainer.style.display = "none";
+        modalAIContainer.style.display = "none";
         startScreen.style.display = "none";
     }
     
     const showGame = () => {
         containerBoard.style.display = "grid";
         gameTurns.style.display = "flex";
-        footer.style.display = "block";
+        footer.style.display = "flex";
         contentDiv.style.display = "flex";
     }
 
@@ -267,13 +337,12 @@ const displayController = (function (){
         }
     }
 
-    const unHighlightTurns = () => {
-        player1Name.style.borderBottom = "3px solid transparent"
-        player2Name.style.borderBottom = "3px solid transparent"
-    }
-
     const closeHighlights = () => {
         divGameTurns.style.display = "none";
+    }
+
+    const showHighlights = () => {
+        divGameTurns.style.display = "flex";
     }
 
     const showWinner = (winnerResult) => {
@@ -287,12 +356,21 @@ const displayController = (function (){
         }
         else if (winnerResult === "Tie"){
             winnerName.textContent = "it's a Tie";
-            winner.style.color = "white";
+            winnerName.style.color = "white";
         }
         winner.style.display = "flex";
     } 
 
-    return {showModal, inputFocusEffect, showError, close, showGame, showNames, highlightTurns, unHighlightTurns, closeHighlights, showWinner};
+    const closeWinner = () => {
+        winner.style.display= "none";
+    }
+
+    const showAIModal = () => {
+        modalAIContainer.style.display = "flex";
+    }
+
+    return {showModal, inputFocusEffect, showError, close, showGame, showNames, 
+        highlightTurns,closeHighlights, showWinner, closeWinner, showHighlights, showAIModal};
 })()
 
 displayController.inputFocusEffect(inputs);

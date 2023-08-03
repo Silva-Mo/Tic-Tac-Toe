@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +9,26 @@
     <script src="js/script.js" defer></script>
     <title>Tic Tac Toe</title>
 </head>
+
 <body>
     <div class="start-screen">
-        <h1 class="title-start"><span class="green">Tic</span> <span class="yellow">Tac</span> <span class="green">Toe</span></h1>
+        <h1 class="title-start"><span class="green">Tic</span> <span class="yellow">Tac</span> <span
+                class="green">Toe</span></h1>
         <div class="modes">
             <h2 class="choose-text">Select your mode:</h4>
-            <div class="options">
-                <button class="Player-vs-Player">Player vs Player</button>
-                <button class="Player-vs-AI">Player vs AI</button>    
-            </div>
+                <div class="options">
+                    <button class="Player-vs-Player">P1 vs P2</button>
+                    <button class="Player-vs-AI">P v AI</button>
+                </div>
         </div>
     </div>
     <div class="game-turns">
         <div class="player1 info">
             <img src="imgs/X.svg" alt="X">
             <div class="player1-name"></div>
-        </div> 
+        </div>
         <div class="player2 info">
-            <img src="imgs/O.svg"" alt="O">
+            <img src="imgs/O.svg"" alt=" O">
             <div class="player2-name"></div>
         </div>
     </div>
@@ -48,8 +51,9 @@
             <div class="square" data-index="8"></div>
         </div>
     </div>
-    <div class="footer">
-        Footer
+    <div class="footer ">
+        <img src="imgs/github-mark.svg" alt="github">
+        <div><a href="https://github.com/Silva-Mo/Tic-Tac-Toe">Silva-Mo</a></div>
     </div>
     <div class="modal-container">
         <div class="modal-PvP">
@@ -79,5 +83,24 @@
             </div>
         </div>
     </div>
+    <div class="modal-container-AI">
+        <div class="modal-AI">
+            <div class="close">
+                <img src="imgs/close.svg" alt="close">
+            </div>
+            <div class="modal-content">
+                <h1>Choose difficulty:</h1>
+                <div class="difficulty">
+                    <button class="easy">
+                        Easy
+                    </button>
+                    <button class="hard">
+                        Hard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

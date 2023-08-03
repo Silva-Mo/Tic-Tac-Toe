@@ -132,7 +132,7 @@ h1.title-start {
     align-items: center;
     background:  #0058516e;
     background: -webkit-linear-gradient(to top, #c7d82c18, #00585142);
-    background: linear-gradient(to top, #c7d82c18, #00585142);
+    background: linear-gradient(to top, #c7d82c3a, #00585154);
     border-radius: 12px;
     box-shadow: 13px 13px 3px rgba(73, 73, 73, 0.301);
     padding-bottom: 75px;
@@ -191,7 +191,7 @@ h2.choose-text{
     font-size: 1.7rem;
 }
 
-.modal-container{
+.modal-container, .modal-container-AI{
     position: fixed;
     left: 0;
     top: 0;
@@ -204,20 +204,28 @@ h2.choose-text{
     z-index: 1;
 }
 
-.modal-PvP {
+.modal-PvP, .modal-AI {
     min-height: 320px;
     left: 50%;
     top: 50%;
     height: 20%;
     width: 27%;
-    background: #bdc3c7;
-    background: -webkit-linear-gradient(to bottom, #2c3e50, #9da1a3);
-    background: linear-gradient(to bottom, #6c767e, #727272);
+    background: #367248;
+    background: -webkit-linear-gradient(to bottom, #3b8551, #4f754b);
+    background: linear-gradient(to bottom, #3b8551, #4f754b);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     animation: popup 0.27s;
+}
+
+.modal-AI {
+    align-items: center;
+}
+
+.modal-AI .close{
+    align-self: flex-end;
 }
 
 .close {
@@ -350,7 +358,6 @@ div.submit_container button:active {
     display: none;
     margin: 0;
     width: 40%;
-    margin-top: 20px;
     min-height: 130px;
     border-radius: 7px;
     justify-content: space-around;
@@ -396,6 +403,7 @@ div.submit_container button:active {
     flex-direction: column;
     align-items: center;
     animation: opacity 0.8s;
+    min-height: 130px;
 }
 
 @keyframes opacity {
@@ -420,4 +428,80 @@ div.submit_container button:active {
     border: 2px solid rgb(255, 255, 255);
     color: rgb(255, 255, 255);
     border-radius: 20px;
+}
+
+.footer{
+    align-items: center;
+    color: white;
+    font-size: 1.8rem;
+    padding-bottom: 4px;
+}
+
+.footer img {
+    width: 80px;
+    height: 80px;
+}
+
+.footer h1{
+    margin: 0;
+}
+
+.footer {
+    align-items: center;
+    gap: 10px;
+    color: rgb(36, 36, 36);
+    font-size: 1.4rem;
+    transition: 0.4s;
+}
+
+.footer div{
+    transition: 0.4s;
+}
+
+.footer img {
+    height: 40px;
+    width: 40px;
+    transition: 0.4s;
+}
+
+.footer:hover img{
+    transform: rotate(360deg);
+}
+
+.footer:hover div{
+    transform: scale(1.1);
+}
+
+.footer:hover{
+    gap: 15px;
+}
+
+.footer div a:visited{
+    color: rgb(36, 36, 36);
+    text-decoration: none;
+}
+
+.footer div a:link{
+    color: rgb(36, 36, 36);
+    text-decoration: none;
+}
+
+.difficulty {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.difficulty button{
+    width: 100px;
+}
+
+.modal-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+    color: white;
 }
