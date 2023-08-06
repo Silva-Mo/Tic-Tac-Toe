@@ -64,7 +64,8 @@ containerBoard.addEventListener('click', (e) => {
             displayController.showWinner("X");
         }
         if (gameBoard.previousPlayer === "1" && !gameBoard.winner && !gameBoard.isBoardFull()){
-            gameBoard.placeMarker("O", squares[gameBoard.AInextMoveEasy()]);
+            gameBoard.placeMarker("O", squares[gameBoard.minimax("O").index]);
+            
             if (gameBoard.detectWin("O") === "O"){
                 console.log("O has won");
                 gameBoard.winner = "O";
@@ -142,13 +143,15 @@ const gameBoard = (function(){
     ]
 
     let AIMode = false;
+
+    let UnbeatableMode = true;
  
     let previousPlayer = "";
 
-    const detectWin = (marker) => {
+    const detectWin = (marker, board = gameBoardArr) => {
         let filteredGameBoard = [];
-        for (let i = 0; i < gameBoardArr.length; i++){
-            if (gameBoardArr[i] === marker){
+        for (let i = 0; i < board.length; i++){
+            if (board[i] === marker){
                 filteredGameBoard.push(i);
             }
         }
@@ -156,21 +159,81 @@ const gameBoard = (function(){
         for (let i = 0; i < winCombinations.length; i++){  
             if (marker === "X"){
                 if(getCompareResult(filteredGameBoard, winCombinations[i])){
-                    highlightWinner("X", winCombinations[i]);
+                    if (!UnbeatableMode){
+                        highlightWinner("X", winCombinations[i]);   
+                    }
                     return "X";
                 }
             }
             else if (marker === "O"){
                 if(getCompareResult(filteredGameBoard, winCombinations[i])){
-                    highlightWinner("O", winCombinations[i]);
+                    if (!UnbeatableMode){
+                      highlightWinner("O", winCombinations[i]);    
+                    }
                     return "O";
                 }
             }  
         }
-
-        if (gameBoardArr.some((element) => {if (element === "") {return true}}) === false){
-            return "Tie"
+        if (board.some((element) => {if (element === "") {return true}}) === false){
+            return "Tie";
         }
+    }
+
+    const minimax = (marker, newBoard = gameBoardArr) => {
+        let emptySpots = [];
+        for (let i = 0; i < newBoard.length; i++){
+            if (newBoard[i] === "")
+            emptySpots.push(i);
+        }
+
+        if (detectWin("X", newBoard) === "X"){
+            return {score: -10};
+        }
+        else if (detectWin("O", newBoard) === "O"){
+            return {score: 10};
+        }
+
+         if (emptySpots.length === 0){
+            return {score: 0};
+        }
+
+        let moves = [];
+        for (let i = 0; i < emptySpots.length; i++) {
+            let move = {};
+            move.index = emptySpots[i];
+            newBoard[emptySpots[i]] = marker;
+
+            if (marker === "O"){
+                let result = minimax("X", newBoard).score;
+                move.score = result;
+            }
+            else {
+                let result = minimax("O", newBoard).score;
+                move.score = result;
+            }
+            moves.push(move);
+            newBoard[emptySpots[i]] = "";
+        }
+
+        let bestMove;
+        if(marker === "O"){
+            let bestScore = -10000;
+            for(var i = 0; i < moves.length; i++){
+              if(moves[i].score > bestScore){
+                bestScore = moves[i].score;
+                bestMove = moves[i];
+              }
+            }
+          }else{
+            let bestScore = 10000;
+            for(let i = 0; i < moves.length; i++){
+              if(moves[i].score < bestScore){
+                bestScore = moves[i].score;
+                bestMove = moves[i];
+              }
+            }
+          }
+          return bestMove;
     }
 
     const getCompareResult = (filteredGameBoard, combination) => {
@@ -270,12 +333,12 @@ const gameBoard = (function(){
             return true;
         }
         else {
-            return false
+            return false;
         }
     }
 
-    return {playerTurnNum, getMarker, placeMarker, detectWin, 
-        previousPlayer, restartGame, AIMode, AInextMoveEasy, isBoardFull};
+    return {playerTurnNum, getMarker, placeMarker, detectWin,previousPlayer, 
+        restartGame, AIMode, AInextMoveEasy, isBoardFull, minimax};
 })()
 
 const displayController = (function (){
