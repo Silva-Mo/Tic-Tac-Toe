@@ -107,11 +107,6 @@ img.X, img.O{
     animation: down 0.34s;
 }
 
-.footer {
-    height:50px;
-    display: none;
-}
-
 img.winX, img.winO{
     height: 65%;
     width: 65%;
@@ -218,6 +213,10 @@ h2.choose-text{
     flex-direction: column;
     justify-content: space-between;
     animation: popup 0.27s;
+}
+
+.modal-AI{
+    min-height: 230px;
 }
 
 .modal-AI {
@@ -416,6 +415,12 @@ div.submit_container button:active {
     }
 }
 
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .winner-name {
     text-shadow: 0 0 14px black;
     text-align: center;
@@ -430,23 +435,30 @@ div.submit_container button:active {
     border-radius: 20px;
 }
 
-.footer{
+.footer {
+    display: none;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.logo-container{
     align-items: center;
     color: white;
     font-size: 1.8rem;
     padding-bottom: 4px;
+    display: flex;
 }
 
-.footer img {
+.logo-container img {
     width: 80px;
     height: 80px;
 }
 
-.footer h1{
+.logo-container h1{
     margin: 0;
 }
 
-.footer {
+.logo-container {
     align-items: center;
     gap: 10px;
     color: rgb(36, 36, 36);
@@ -454,34 +466,34 @@ div.submit_container button:active {
     transition: 0.4s;
 }
 
-.footer div{
+.logo-container div{
     transition: 0.4s;
 }
 
-.footer img {
+.logo-container img {
     height: 40px;
     width: 40px;
     transition: 0.4s;
 }
 
-.footer:hover img{
+.logo-container:hover img{
     transform: rotate(360deg);
 }
 
-.footer:hover div{
+.logo-container:hover div{
     transform: scale(1.1);
 }
 
-.footer:hover{
+.logo-container:hover{
     gap: 15px;
 }
 
-.footer div a:visited{
+.logo-container div a:visited{
     color: rgb(36, 36, 36);
     text-decoration: none;
 }
 
-.footer div a:link{
+.logo-container div a:link{
     color: rgb(36, 36, 36);
     text-decoration: none;
 }
@@ -504,4 +516,16 @@ div.submit_container button:active {
     align-items: center;
     padding-bottom: 30px;
     color: white;
+}
+
+img[alt ="home"]{
+    transition: 0.27s;
+}
+
+img[alt="home"]:hover{
+    transform: scale(1.08);
+}
+
+img[alt="home"]:active{
+    transform: scale(0.99);
 }
