@@ -132,11 +132,9 @@ homeBtn.addEventListener('click', () => {
 })
 
 const gameBoard = (function(){
-    const gameBoardArr = ["","","","","","","","",""]
+    const gameBoardArr = ["","","","","","","","",""];
 
-    const winCombinations = [
-        [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[2,4,6],[0,4,8]
-    ]
+    const winCombinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[2,4,6],[0,4,8]];
 
     let AIMode = false;
 
@@ -150,6 +148,8 @@ const gameBoard = (function(){
         displayController.close();
         displayController.showGame();
         displayController.showNames();
+        player2Name.style.borderBottom = "3px solid transparent";
+        player1Name.style.borderBottom = "3px solid transparent";
     }
 
     const detectWin = (marker, board = gameBoardArr) => {
@@ -282,13 +282,13 @@ const gameBoard = (function(){
         gameBoardArr[square.getAttribute("data-index")] = `${marker}`;
         if (marker === "X"){
             const imgX = document.createElement('img');
-            imgX.setAttribute('src', '../imgs/X.svg');
+            imgX.setAttribute('src', 'imgs/X.svg');
             imgX.classList.add('X');
             square.appendChild(imgX);
         }
         else if (marker === "O"){
             const imgO = document.createElement('img');
-            imgO.setAttribute('src', '../imgs/O.svg');
+            imgO.setAttribute('src', 'imgs/O.svg');
             imgO.classList.add('O');
             square.appendChild(imgO);
         }
@@ -300,7 +300,7 @@ const gameBoard = (function(){
                 let img = squares[combination[i]].firstElementChild;
                 squares[combination[i]].removeChild(img);
                 const winX = document.createElement('img');
-                winX.setAttribute('src', '../imgs/winX.svg');
+                winX.setAttribute('src', 'imgs/winX.svg');
                 winX.classList.add('winX');
                 squares[combination[i]].appendChild(winX);
             }
@@ -310,7 +310,7 @@ const gameBoard = (function(){
                 let img = squares[combination[i]].firstElementChild;
                 squares[combination[i]].removeChild(img);
                 const winO = document.createElement('img');
-                winO.setAttribute('src', '../imgs/winO.svg');
+                winO.setAttribute('src', 'imgs/winO.svg');
                 winO.classList.add('winO');
                 squares[combination[i]].appendChild(winO);
             }
@@ -426,12 +426,12 @@ const displayController = (function (){
 
     const highlightTurns = () => {
         if (gameBoard.previousPlayer === "2" || gameBoard.previousPlayer === ""){
-            player2Name.style.borderBottom = "3px solid transparent"
+            player2Name.style.borderBottom = "3px solid transparent";
             player1Name.style.borderBottom = "3px solid greenYellow";
         }
         else{
-            player2Name.style.borderBottom = "3px solid yellow"
-            player1Name.style.borderBottom = "3px solid transparent"
+            player2Name.style.borderBottom = "3px solid yellow";
+            player1Name.style.borderBottom = "3px solid transparent";
         }
     }
 
