@@ -1,7 +1,7 @@
 # Tic Tac Toe
 ## Result
-![preview page](imgs/preview.png)
 [LIVE DEMO](https://github.com/Silva-Mo/Tic-Tac-Toe)
+![preview page](imgs/preview.png)
 
 ## About
 That is my second TOP JS project. It requires a good understanding of JS (facotry functions and the module pattern) and intermediate HTML/CSS concepts.
