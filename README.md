@@ -1,7 +1,9 @@
 # Tic Tac Toe
 ## Result
 ![preview page](imgs/preview.png)
+
 </br>
+
 [LIVE DEMO](https://github.com/Silva-Mo/Tic-Tac-Toe)
 
 ## About
