@@ -301,7 +301,7 @@ const gameBoard = (function(){
                 squares[combination[i]].removeChild(img);
                 const winX = document.createElement('img');
                 winX.setAttribute('src', 'imgs/winX.svg');
-                winX.classList.add('winX');
+                winX.className = 'winX';
                 squares[combination[i]].appendChild(winX);
             }
         }
@@ -311,7 +311,7 @@ const gameBoard = (function(){
                 squares[combination[i]].removeChild(img);
                 const winO = document.createElement('img');
                 winO.setAttribute('src', 'imgs/winO.svg');
-                winO.classList.add('winO');
+                winO.className = 'winO';
                 squares[combination[i]].appendChild(winO);
             }
         }
