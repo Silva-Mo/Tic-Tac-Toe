@@ -83,7 +83,7 @@ body{
     }
 
     50%{
-        transform: scale(1.2);
+        transform: scale(1.14);
     }
 
     100%{
@@ -132,6 +132,7 @@ h1.title-start {
     box-shadow: 13px 13px 3px rgba(73, 73, 73, 0.301);
     padding-bottom: 75px;
     animation: popup 0.6s;
+    text-align: center;
 }
 
 .modes {
@@ -155,6 +156,7 @@ h1.title-start {
 
 button{
     width: 300px;
+    min-width: 80px;
     height: 70px;
     background-color: rgba(0, 0, 0, 0.199);
     color: white;
@@ -235,7 +237,7 @@ h2.choose-text{
 .close img {
     width: 40px;
     height: 40px;
-    padding-right: 10px;
+    padding-right: 4px;
 }
 
 form {
@@ -251,6 +253,7 @@ form h1 {
     margin-top: 0;
     color: white;
     font-size: 1.6rem;
+    text-align: center;
 }
 
 form label {
@@ -528,4 +531,90 @@ img[alt="home"]:hover{
 
 img[alt="home"]:active{
     transform: scale(0.99);
+}
+
+@media only screen and (min-width: 1300px) {
+    .grid-container{
+        width: 500px;
+        height: 500px;
+    }
+}
+
+
+@media only screen and (max-width: 1000px){
+    :root{
+        font-size: 12px;
+    }
+
+    .modal-PvP, .modal-AI{
+        width: 40%;
+    }
+
+    .difficulty button {
+        width: 60px;
+    }
+
+    .modal-content h1 {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 690px){
+    .start-screen{
+        width: 80%;
+    }
+
+    .options{
+        width: 100%;
+    }
+
+    .grid-container{
+        width: 330px;
+        height: 330px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .modal-PvP, .modal-AI{
+        width: 72%;
+    }
+}
+
+@media only screen and (max-height: 660px) {
+    .grid-container{
+        width: 350px;
+        height: 350px;
+    }
+}
+
+@media only screen and (max-height: 600px) {
+    .grid-container{
+        width: 330px;
+        height: 330px;
+    }
+}
+
+@media only screen and (max-height: 530px) {
+    .grid-container{
+        width: 240px;
+        height: 240px;
+    }
+
+    .logo-container img {
+        height: 30px;
+        width: 30px;
+    }
+
+    .home {
+        height: 50px;
+        width: 50px;
+    }
+
+    .info img {
+        height: 30px;
+        width: 30px;
+    }
+    :root {
+        font-size: 10px;
+    }
 }
