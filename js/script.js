@@ -298,21 +298,15 @@ const gameBoard = (function(){
         if (marker === "X" && !minimaxMode){
             for (let i = 0; i < combination.length; i++){
                 let img = squares[combination[i]].firstElementChild;
-                squares[combination[i]].removeChild(img);
-                const winX = document.createElement('img');
-                winX.setAttribute('src', 'imgs/winX.svg');
-                winX.className = 'winX';
-                squares[combination[i]].appendChild(winX);
+                img.setAttribute('src', 'imgs/winX.svg');
+                img.className = 'winX';
             }
         }
         else if (marker === "O" && !minimaxMode){
             for (let i = 0; i < combination.length; i++){
                 let img = squares[combination[i]].firstElementChild;
-                squares[combination[i]].removeChild(img);
-                const winO = document.createElement('img');
-                winO.setAttribute('src', 'imgs/winO.svg');
-                winO.className = 'winO';
-                squares[combination[i]].appendChild(winO);
+                img.setAttribute('src', 'imgs/winO.svg');
+                img.className = 'winO';
             }
         }
     }
