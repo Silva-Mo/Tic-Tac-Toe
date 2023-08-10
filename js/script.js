@@ -299,12 +299,14 @@ const gameBoard = (function(){
             for (let i = 0; i < combination.length; i++){
                 let img = squares[combination[i]].firstElementChild;
                 img.setAttribute('src', 'imgs/winX.svg');
+                img.className = 'winX';
             }
         }
         else if (marker === "O" && !minimaxMode){
             for (let i = 0; i < combination.length; i++){
                 let img = squares[combination[i]].firstElementChild;
                 img.setAttribute('src', 'imgs/winO.svg');
+                img.className = 'winO';
             }
         }
     }
