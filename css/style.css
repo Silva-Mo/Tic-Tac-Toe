@@ -107,7 +107,7 @@ img.X, img.O{
     animation: down 0.34s;
 }
 
-img.winX, img.winO{
+img[src="imgs/winO.svg"], img[src="imgs/winX.svg"]{
     height: 65%;
     width: 65%;
     animation: up-down 2s;
